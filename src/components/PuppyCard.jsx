@@ -1,15 +1,17 @@
 import PuppyIcon from "./PuppyIcon"
-
-const PuppyCard = ({puppy}) => {
+//this is destructuring you can still use props.blabla
+const PuppyCard = ({ puppy, handleRemovePuppy }) => {
   return (
     <li>
       <section>
-        <button>X</button>
+        <button onClick={() => handleRemovePuppy(puppy._id)}>X</button>
       </section>
 
-      <PuppyIcon puppy={puppy}/>
+      <PuppyIcon puppy={puppy} />
       <h2>{puppy.name.toUpperCase()}</h2>
-      <p>A {puppy.age}-year old {puppy.breed}</p>
+      <p>
+        A {puppy.age}-year old {puppy.breed}
+      </p>
     </li>
   )
 }

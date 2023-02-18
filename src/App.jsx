@@ -28,6 +28,11 @@ const App = () => {
     navigate("/puppies")
   }
 
+  const handleRemovePuppy = async (id) => {
+    const removedPuppy = await puppyService.delete(id)
+    setPuppies(puppies.filter((puppy) => puppy._id !== removedPuppy._id))
+  }
+
   //useEffect for console logging
   useEffect(() => {
     console.log(puppies)
@@ -38,7 +43,15 @@ const App = () => {
       <Nav />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/puppies" element={<PuppyList puppies={puppies} />} />
+        <Route
+          path="/puppies"
+          element={
+            <PuppyList
+              puppies={puppies}
+              handleRemovePuppy={handleRemovePuppy}
+            />
+          }
+        />
         <Route
           path="/puppies/new"
           element={<NewPuppy handleAddPuppy={handleAddPuppy} />}
