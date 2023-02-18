@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { Routes, Route, useNavigate } from "react-router-dom"
 import * as puppyService from "./services/puppyService"
 import PuppyList from "./pages/PuppyList/PuppyList"
+import NewPuppy from "./pages/NewPuppy/NewPuppy.jsx"
 
 // Components
 import Nav from "./components/Nav"
@@ -21,11 +22,10 @@ const App = () => {
     fetchPuppies()
   }, [])
 
-  const handleAddPuppy = async(data)=>{
-const newPuppy=await puppyService.create(data)
-setPuppies([newPuppy,...puppies])
-navigate("/puppies")
-
+  const handleAddPuppy = async (data) => {
+    const newPuppy = await puppyService.create(data)
+    setPuppies([newPuppy, ...puppies])
+    navigate("/puppies")
   }
 
   //useEffect for console logging
@@ -39,6 +39,10 @@ navigate("/puppies")
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/puppies" element={<PuppyList puppies={puppies} />} />
+        <Route
+          path="/puppies/new"
+          element={<NewPuppy handleAddPuppy={handleAddPuppy} />}
+        />
       </Routes>
     </>
   )
