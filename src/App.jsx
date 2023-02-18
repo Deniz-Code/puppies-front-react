@@ -8,8 +8,9 @@ import PuppyList from "./pages/PuppyList/PuppyList"
 import Nav from "./components/Nav"
 import Landing from "./pages/Landing/Landing"
 
-
 const App = () => {
+  const navigate = useNavigate()
+
   const [puppies, setPuppies] = useState([])
 
   useEffect(() => {
@@ -20,10 +21,17 @@ const App = () => {
     fetchPuppies()
   }, [])
 
+  const handleAddPuppy = async(data)=>{
+const newPuppy=await puppyService.create(data)
+setPuppies([newPuppy,...puppies])
+navigate("/puppies")
+
+  }
+
   //useEffect for console logging
-  useEffect(()=>{
-    console.log(puppies);
-  },[puppies])
+  useEffect(() => {
+    console.log(puppies)
+  }, [puppies])
 
   return (
     <>
